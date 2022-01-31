@@ -8,25 +8,19 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel("widgets here",
                  dateRangeInput("dates",
-                                label = h5("Date Range"),
-                                hr(),
-                                fluidRow(column(4, verbatimTextOutput("value")))
+                                label = h5("Date Range")
                                 ),
                  checkboxGroupInput("checkGroup", label = h5("Checkbox group"),
                                     choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
                                     selected = 1),
-                 hr(),
-                 fluidRow(column(3, verbatimTextOutput("values"))),
                  radioButtons("radio", label = h5("Radio Buttons"),
                               choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
-                              selected = 1),
-                 hr(),
-                 fluidRow(column(3, verbatimTextOutput("value")))
-    )
+                              selected = 1)
     ), 
     #end widgets
     mainPanel("Graph here")
 )
+
 
 
 
