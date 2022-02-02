@@ -18,5 +18,11 @@ cruise_pulse <- read_csv(here("data", "cruise_pulse_all_info.csv"))
 reef_area <- read_csv(here("data", "reef_area_exposure.csv"))
 
 seagrass_area <- read_csv(here("data", "seagrass_area_exposure.csv"))
+
+basins <- read_csv(here("data", "basins_admin.csv"))
+
+watersheds <- read_csv(here("data", "top_20_watersheds.csv"))
+
+reef_admin <- read_csv(here("data", "reef_admin.csv"))
 ```
 
