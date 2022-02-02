@@ -1,9 +1,10 @@
 library(shiny)
 library(tidyverse)
 library(palmerpenguins)
+library(shinythemes)
 
 
-ui <- fluidPage(
+ui <- fluidPage(theme = shinytheme("flatly"),
   titlePanel("Title Here"),
   sidebarLayout(
     sidebarPanel("widgets here",
