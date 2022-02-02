@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(here)
-
+library(janitor)
 ```
 
 
@@ -19,7 +19,7 @@ reef_area <- read_csv(here("data", "reef_area_exposure.csv"))
 
 seagrass_area <- read_csv(here("data", "seagrass_area_exposure.csv"))
 
-basins <- read_csv(here("data", "basins_admin.csv"))
+basins <- read_csv(here("data", "basins_admin.csv")) %>% clean_names() 
 
 watersheds <- read_csv(here("data", "top_20_watersheds.csv"))
 
