@@ -19,6 +19,7 @@ ui <- fluidPage(
     ), 
     #end widgets
     mainPanel("Graph here")
+    )
 )
 
 
