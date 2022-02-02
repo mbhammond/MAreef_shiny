@@ -5,9 +5,12 @@ library(shinythemes)
 
 
 ui <- fluidPage(theme = shinytheme("flatly"),
-  titlePanel("Title Here"),
+  titlePanel("NOT TOO SHABBY AY"),
   sidebarLayout(
     sidebarPanel("widgets here",
+                 selectInput("select", label = h5("Select box"),
+                             choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
+                             selected = 1),
                  dateRangeInput("dates",
                                 label = h5("Date Range")
                                 ),
@@ -16,7 +19,8 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                                     selected = 1),
                  radioButtons("radio", label = h5("Radio Buttons"),
                               choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
-                              selected = 1)
+                              selected = 1),
+                 
     ), 
     #end widgets
     mainPanel("Graph here")

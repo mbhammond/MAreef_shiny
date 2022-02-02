@@ -1,0 +1,22 @@
+---
+title: "beepboop"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+
+```
+
+
+```{r}
+
+cruise_pulse <- read_csv(here("data", "cruise_pulse_all_info.csv"))
+
+reef_area <- read_csv(here("data", "reef_area_exposure.csv"))
+
+seagrass_area <- read_csv(here("data", "seagrass_area_exposure.csv"))
+```
+
