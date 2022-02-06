@@ -3,12 +3,25 @@ library(tidyverse)
 library(palmerpenguins)
 library(shinythemes)
 
+library(bslib)
 
-ui <- fluidPage(theme = shinytheme("flatly"),
-  titlePanel("NOT TOO SHABBY AY"),
+# In console, run bs_theme_preview() to play around with different things!
+
+# See ?bs_theme() for more options & information.
+
+my_theme <- bs_theme(
+  bg = "#bbccdd",
+  fg = "#0f644d",
+  primary = "#eeeeea",
+  base_font = font_google("Raleway")
+)
+
+
+ui <- fluidPage(theme = my_theme,
+  titlePanel("Meso-American Reef Watershed Basin Impacts"),
   sidebarLayout(
-    sidebarPanel("widgets here",
-                 selectInput("select", label = h5("Select box"),
+    sidebarPanel("Select which areas and pollutants you'd like to investigate:",
+                 selectInput("select", label = h5("Region"),
                              choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
                              selected = 1),
                  dateRangeInput("dates",
@@ -19,20 +32,19 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                                                 "Honduras" = "Honduras", 
                                                 "Guatemala" = "Guatemala",
                                                 "Belize" = "Belize")),
-                 radioButtons("radio", label = h5("Radio Buttons"),
+                 radioButtons("radio", label = h5("Pollutant"),
                               choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
                               selected = 1),
                  
     ), 
     #end widgets
-    mainPanel("Graph here",
-              plotOutput(outputId = "ma_reef")
-              ) # end main panel
+    mainPanel(
+      tabsetPanel(type = "tabs",
+                  tabPanel("Graph", plotOutput(outputId = "ma_reef")),
+                  tabPanel("Table", tableOutput("table"))
+      ) # end main panel
     ) # end sidebarLayout
-)
-
-
-
+))
 
 server <- function(input, output) {
   country_select <- reactive({
