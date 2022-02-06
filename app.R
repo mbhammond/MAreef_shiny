@@ -41,7 +41,7 @@ ui <- fluidPage(theme = my_theme,
     mainPanel(
       tabsetPanel(type = "tabs",
                   tabPanel("Graph", plotOutput(outputId = "ma_reef")),
-                  tabPanel("Table", tableOutput("table"))
+                  tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
       ) # end main panel
     ) # end sidebarLayout
 ))
@@ -57,6 +57,12 @@ server <- function(input, output) {
   output$ma_reef <- renderPlot({
     ggplot(data = country_select(), aes(x = crops_n_n_24_15, y = lvstc_n_n_24_15)) +
       geom_point()
+  })
+  
+  output$ma_reef_tab <- renderTable({
+    country_select() %>%
+      group_by(country_c_80) %>%
+      summarize(total_n = sum(area_n_24_15))
   })
 }
 
