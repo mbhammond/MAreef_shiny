@@ -40,6 +40,7 @@ ui <- fluidPage(theme = my_theme,
     #end widgets
     mainPanel(
       tabsetPanel(type = "tabs",
+                  tabPanel("Map"),
                   tabPanel("Graph", plotOutput(outputId = "ma_reef")),
                   tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
       ) # end main panel
