@@ -4,6 +4,8 @@ library(palmerpenguins)
 library(shinythemes)
 
 library(bslib)
+#library(devtools)
+devtools::install_github("hadley/emo")
 
 # In console, run bs_theme_preview() to play around with different things!
 
@@ -18,7 +20,7 @@ my_theme <- bs_theme(
 
 
 ui <- fluidPage(theme = my_theme,
-                navbarPage("NavBar!",
+                navbarPage(emo::ji("pig2"),
                            tabPanel("Introduction",
                                     titlePanel("Meso-American Reef Watershed Basin Impacts")),
                            tabPanel("Visualizations",
