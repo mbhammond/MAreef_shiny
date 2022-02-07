@@ -10,9 +10,9 @@ library(bslib)
 # See ?bs_theme() for more options & information.
 
 my_theme <- bs_theme(
-  bg = "#bbccdd",
+  bg = "#e9f5f8",
   fg = "#0f644d",
-  primary = "#eeeeea",
+  primary = "#a6a6a6",
   base_font = font_google("Raleway")
 )
 
