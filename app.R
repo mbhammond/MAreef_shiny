@@ -18,8 +18,10 @@ my_theme <- bs_theme(
 
 
 ui <- fluidPage(theme = my_theme,
-                div(class = "navbar1", navbarPage(title = 'Navbar One')),
-                navbarPage(
+                navbarPage("NavBar!",
+                           tabPanel("Introduction",
+                                    titlePanel("Meso-American Reef Watershed Basin Impacts")),
+                           tabPanel("Visualizations",
   titlePanel("Meso-American Reef Watershed Basin Impacts"),
   sidebarLayout(
     sidebarPanel("Select which areas and pollutants you'd like to investigate:",
@@ -46,7 +48,7 @@ ui <- fluidPage(theme = my_theme,
                   tabPanel("Graph", plotOutput(outputId = "ma_reef")),
                   tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
       ) # end main panel
-    ) # end sidebarLayout
+    )) # end sidebarLayout
 )))
 
 server <- function(input, output) {
