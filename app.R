@@ -22,7 +22,40 @@ my_theme <- bs_theme(
 ui <- fluidPage(theme = my_theme,
                 navbarPage(emo::ji("pig2"),
                            tabPanel("Introduction",
-                                    titlePanel("Meso-American Reef Watershed Basin Impacts")),
+                                    titlePanel("Meso-American Reef Watershed Basin Impacts"),
+                                    fluidRow(column(3,
+                                                    br(),
+                                                    br(),
+                                           img(src = "NCEAS-Stacked-4C_0.png", width = "300px")
+                                    ),
+                                    column(6,
+                                           h5("Welcome to the watershed effluent analysis portal!"),
+                                           p("Land-based nitrogen pollution is a major threat to coastal ecosystems, 
+                                         especially in tropical regions home to high biodiversity habitats such as 
+                                         coral reefs and seagrass beds. The sustained addition of excess nutrients 
+                                         (in the form of nitrates) to these ecosystems, which are adapted to 
+                                         oligotrophic environments, disrupts ecosystem function and the ability to 
+                                         provide services that support livelihoods and benefit human well-being. 
+                                         Nitrogen (N) primarily originates from agricultural crop production, 
+                                         livestock waste, and human sewage, as well as excretion from seabird and 
+                                         feral ungulates for some small atolls and cayes."),
+                                           p("Here we model four major sources of N pollution – crop production, 
+                                         livestock production, wastewater generated from permanent residents and 
+                                         wastewater generated from seasonal populations – at the regional scale, 
+                                         measuring inputs and impacts from 430 watersheds that drain into the 
+                                         Mesoamerican Reef region."),
+                                           p("Now go ahead and click on 'Visualizations' and play around with the different 
+                                         regions, dates, countries, and pollutants!"),
+                                         p("Citation: ")
+                                           ),
+                                    column(3,
+                                           br(),
+                                           br(),
+                                           br(),
+                                           br(),
+                                           img(src = "mesoreef.png", width = "300px")
+                                    )
+                                    )),
                            tabPanel("Visualizations",
   titlePanel("Meso-American Reef Watershed Basin Impacts"),
   sidebarLayout(
