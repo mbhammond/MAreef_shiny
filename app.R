@@ -4,8 +4,8 @@ library(palmerpenguins)
 library(shinythemes)
 
 library(bslib)
-#library(devtools)
-devtools::install_github("hadley/emo")
+library(devtools)
+#devtools::install_github("hadley/emo")
 
 # In console, run bs_theme_preview() to play around with different things!
 
