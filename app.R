@@ -92,7 +92,8 @@ server <- function(input, output) {
   
   output$ma_reef <- renderPlot({
     ggplot(data = country_select(), aes(x = crops_n_n_24_15, y = lvstc_n_n_24_15)) +
-      geom_point()
+      geom_point() +
+      theme_minimal()
   })
   
   output$ma_reef_tab <- renderTable({
