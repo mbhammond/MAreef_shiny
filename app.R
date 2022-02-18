@@ -24,8 +24,9 @@ ui <- fluidPage(theme = my_theme,
                            tabPanel("Introduction",
                                     titlePanel(h2("Meso-American Reef Watershed Basin Impacts", align = "center")),
                                     fluidRow(column(3,
-                                                    br(),
-                                           img(src = "NCEAS-Stacked-4C_0.png", width = "300px")
+                                           img(src = "NCEAS-Stacked-4C_0.png", width = "300px"),
+                                           br(),
+                                           img(src = "mesoreef.png", width = "300px")
                                     ),
                                     column(6,
                                            h5("Welcome to the watershed effluent analysis portal!"),
@@ -49,13 +50,7 @@ ui <- fluidPage(theme = my_theme,
                                          br(),
                                          p(em("Developed by Sarah Hamilton and Margaret Hammond"), style = "text-align:center")
                                            ),
-                                    column(3,
-                                           br(),
-                                           br(),
-                                           br(),
-                                           br(),
-                                           img(src = "mesoreef.png", width = "300px")
-                                    )
+                                    column(3)
                                     )),
                            tabPanel("Visualizations",
   titlePanel("Meso-American Reef Watershed Basin Impacts"),
