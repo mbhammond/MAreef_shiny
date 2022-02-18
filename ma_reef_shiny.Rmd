@@ -13,17 +13,17 @@ library(janitor)
 
 ```{r}
 #read in data for shiny app
-cruise_pulse <- read_csv(here("data", "cruise_pulse_all_info.csv"))
+cruise_pulse <- read_csv(here("data", "cruise_pulse_all_info.csv")) %>% clean_names()
 
-reef_area <- read_csv(here("data", "reef_area_exposure.csv"))
+reef_area <- read_csv(here("data", "reef_area_exposure.csv")) %>% clean_names()
 
-seagrass_area <- read_csv(here("data", "seagrass_area_exposure.csv"))
+seagrass_area <- read_csv(here("data", "seagrass_area_exposure.csv")) %>% clean_names()
 
 basins <- read_csv(here("data", "basins_admin.csv")) %>% clean_names() 
 
-watersheds <- read_csv(here("data", "top_20_watersheds.csv"))
+watersheds <- read_csv(here("data", "top_20_watersheds.csv")) %>% clean_names()
 
-reef_admin <- read_csv(here("data", "reef_admin.csv"))
+reef_admin <- read_csv(here("data", "reef_admin.csv")) %>% clean_names()
 ```
 
  

@@ -22,9 +22,8 @@ my_theme <- bs_theme(
 ui <- fluidPage(theme = my_theme,
                 navbarPage(emo::ji("pig2"),
                            tabPanel("Introduction",
-                                    titlePanel("Meso-American Reef Watershed Basin Impacts"),
+                                    titlePanel(h2("Meso-American Reef Watershed Basin Impacts", align = "center")),
                                     fluidRow(column(3,
-                                                    br(),
                                                     br(),
                                            img(src = "NCEAS-Stacked-4C_0.png", width = "300px")
                                     ),
@@ -46,7 +45,9 @@ ui <- fluidPage(theme = my_theme,
                                          Mesoamerican Reef region."),
                                            p("Now go ahead and click on 'Visualizations' and play around with the different 
                                          regions, dates, countries, and pollutants!"),
-                                         p("Citation: ")
+                                         p("Data Citation: "),
+                                         br(),
+                                         p(em("Developed by Sarah Hamilton and Margaret Hammond"), style = "text-align:center")
                                            ),
                                     column(3,
                                            br(),
