@@ -2,10 +2,35 @@ library(shiny)
 library(tidyverse)
 library(palmerpenguins)
 library(shinythemes)
-
+library(here)
 library(bslib)
 library(devtools)
-#devtools::install_github("hadley/emo")
+library(tmap)
+library(janitor)
+library(sf)
+
+# -----------------------
+  ### all data input
+  cruise_pulse <- read_csv(here("data", "cruise_pulse_all_info.csv")) %>% clean_names()
+  
+  reef_area <- read_csv(here("data", "reef_area_exposure.csv")) %>% clean_names()
+  
+  seagrass_area <- read_csv(here("data", "seagrass_area_exposure.csv")) %>% clean_names()
+  
+  basins <- read_csv(here("data", "basins_admin.csv")) %>% clean_names() 
+  
+  watersheds <- read_csv(here("data", "top_20_watersheds.csv")) %>% clean_names()
+  
+  reef_admin <- read_csv(here("data", "reef_admin.csv")) %>% clean_names()
+  
+ ### map input 
+  basins_sf <- read_sf(here('data/spatial/basins_admin.shp'))
+  
+  top_watershed_sf <- read_sf(here('data/spatial/top_20_watersheds.shp'))
+  
+  
+  
+# ---------------------------------------
 
 # In console, run bs_theme_preview() to play around with different things!
 
@@ -67,15 +92,18 @@ ui <- fluidPage(theme = my_theme,
                                                 "Honduras" = "Honduras", 
                                                 "Guatemala" = "Guatemala",
                                                 "Belize" = "Belize")),
-                 radioButtons("radio", label = h5("Pollutant"),
-                              choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
-                              selected = 1)
-                 
+                 radioButtons("pollutant_check", label = h5("Nitrogen Source"),
+                              choices = list(res_N = "res_N", 
+                                             torst_N = "torst_N", 
+                                             crops_N = "crops_N",
+                                             lvstc_N = "lvstc_N"),
+                              selected = 1),
+
     ), 
     #end widgets
     mainPanel(
       tabsetPanel(type = "tabs",
-                  tabPanel("Map"),
+                  tabPanel("Map", plotOutput(outputId = "ma_reef_map")),
                   tabPanel("Graph", plotOutput(outputId = "ma_reef")),
                   tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
       ) # end main panel
@@ -87,6 +115,11 @@ server <- function(input, output) {
     basins %>% 
       filter(country_c_80 == input$country_check)
   }) #end country check reactive
+  
+  # map_reactor <- reactive({
+  #    basins_sf %>% 
+  #      select(input$pollutant_check)
+  # })
   
   output$value <- renderPrint({input$dates})
   
@@ -100,6 +133,13 @@ server <- function(input, output) {
     country_select() %>%
       group_by(country_c_80) %>%
       summarize(total_n = sum(area_n_24_15))
+  })
+  
+  output$ma_reef_map <- renderPlot({
+    ggplot() +
+      geom_sf(data = top_watershed_sf) +
+      geom_sf(data = basins_sf, aes(fill = input$pollutant_check)) +
+      theme_minimal()
   })
 }
 

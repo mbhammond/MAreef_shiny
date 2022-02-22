@@ -8,6 +8,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(here)
 library(janitor)
+library(tmap)
+library(sf)
 ```
 
 
@@ -26,4 +28,40 @@ watersheds <- read_csv(here("data", "top_20_watersheds.csv")) %>% clean_names()
 reef_admin <- read_csv(here("data", "reef_admin.csv")) %>% clean_names()
 ```
 
+```{r}
+ top_watershed_sf <- read_sf(here('data/spatial/top_20_watersheds.shp'))
+
+reef_sf <-
+  read_sf(here('data/spatial/reef_admin.shp'))
+
+seagrass_sf <-
+  read_sf(here('data/spatial/seagrass_admin.shp'))
+
+basins_sf <-
+  read_sf(here('data/spatial/basins_admin.shp'))
+
+top_watershed_df <- top_watershed_sf %>% 
+  as.data.frame() %>% 
+  select(-geometry)
+
+basins_df <- basins_sf %>% 
+  as.data.frame() %>% 
+  select(-geometry)
+
+seagrass_df <- seagrass_sf %>% 
+  as.data.frame() %>% 
+  select(-geometry)
+
+head(top_watershed_df)
+head(basins_df)
+head(seagrass_df)
+
+ggplot() +
+  geom_sf(data = top_watershed_sf) +
+  geom_sf(data = reef_sf) +
+  geom_sf(data = seagrass_sf) +
+  geom_sf(data = basins_sf, aes(fill = lvstc_N)) +
+  theme_minimal()
+```
+ 
  
