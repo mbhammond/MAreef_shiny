@@ -26,6 +26,8 @@ library(sf)
  ### map input 
   basins_sf <- read_sf(here('data/spatial/basins_admin.shp'))
   
+  basins_sf_long <- basins_sf %>% pivot_longer(res_N:lvstc_N, names_to = "source", values_to = "N_quantity")
+  
   top_watershed_sf <- read_sf(here('data/spatial/top_20_watersheds.shp'))
   
   
@@ -111,34 +113,41 @@ ui <- fluidPage(theme = my_theme,
 )))
 
 server <- function(input, output) {
+  
+  # reactive output for selected countries
   country_select <- reactive({
     basins %>% 
       filter(country_c_80 == input$country_check)
   }) #end country check reactive
   
-  # map_reactor <- reactive({
-  #    basins_sf %>% 
-  #      select(input$pollutant_check)
-  # })
+  # reactive output for selected nitrogen source
+    map_reactor <- reactive({
+     basins_sf_long %>%
+       filter(source == input$pollutant_check)
+  })
   
+  # ???
   output$value <- renderPrint({input$dates})
   
+  # plot output 1
   output$ma_reef <- renderPlot({
     ggplot(data = country_select(), aes(x = crops_n_n_24_15, y = lvstc_n_n_24_15)) +
       geom_point() +
       theme_minimal()
   })
-  
+
+  # table output 1
   output$ma_reef_tab <- renderTable({
     country_select() %>%
       group_by(country_c_80) %>%
       summarize(total_n = sum(area_n_24_15))
   })
   
+  # map output 1
   output$ma_reef_map <- renderPlot({
     ggplot() +
       geom_sf(data = top_watershed_sf) +
-      geom_sf(data = basins_sf, aes(fill = input$pollutant_check)) +
+      geom_sf(data = map_reactor(), aes(fill = map_reactor()$N_quantity)) + #change back to just data=basins_sf? no!
       theme_minimal()
   })
 }
