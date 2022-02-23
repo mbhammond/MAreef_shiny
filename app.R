@@ -8,6 +8,7 @@ library(devtools)
 library(tmap)
 library(janitor)
 library(sf)
+library(plotly)
 
 # -----------------------
   ### all data input
@@ -93,13 +94,14 @@ ui <- fluidPage(theme = my_theme,
                                     choices = c("Mexico" = "Mexico", 
                                                 "Honduras" = "Honduras", 
                                                 "Guatemala" = "Guatemala",
-                                                "Belize" = "Belize")),
+                                                "Belize" = "Belize"),
+                                    selected = "Mexico"),
                  radioButtons("pollutant_check", label = h5("Nitrogen Source"),
                               choices = list(res_N = "res_N", 
                                              torst_N = "torst_N", 
                                              crops_N = "crops_N",
                                              lvstc_N = "lvstc_N"),
-                              selected = 1),
+                              selected = "res_N"),
 
     ), 
     #end widgets
@@ -145,11 +147,20 @@ server <- function(input, output) {
   
   # map output 1
   output$ma_reef_map <- renderPlot({
-    ggplot() +
+   # ggplotly(
+      ggplot() +
       geom_sf(data = top_watershed_sf) +
       geom_sf(data = map_reactor(), aes(fill = map_reactor()$N_quantity)) + #change back to just data=basins_sf? no!
       theme_minimal()
+   # )
   })
+
+  # this code below should add text to plotly but not working 
+  # aes(text = paste("Source: ", map_reactor()$source,
+  #                  "<br>Nitrogen: ", 
+  #                  map_reactor()$N_quantity,
+  #                  "<br> UNITS")
+  # )
 }
 
 shinyApp(ui = ui, server = server)
