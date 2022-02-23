@@ -80,22 +80,13 @@ ui <- fluidPage(theme = my_theme,
                                            ),
                                     column(3)
                                     )),
-                           tabPanel("Visualizations",
+                           tabPanel("Maps",
   titlePanel("Meso-American Reef Watershed Basin Impacts"),
   sidebarLayout(
     sidebarPanel("Select which areas and pollutants you'd like to investigate:",
                  selectInput("select", label = h5("Region"),
                              choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
                              selected = 1),
-                 dateRangeInput("dates",
-                                label = h5("Date Range")
-                                ),
-                 checkboxGroupInput(inputId = "country_check", label = h5("Country"),
-                                    choices = c("Mexico" = "Mexico", 
-                                                "Honduras" = "Honduras", 
-                                                "Guatemala" = "Guatemala",
-                                                "Belize" = "Belize"),
-                                    selected = "Mexico"),
                  radioButtons("pollutant_check", label = h5("Nitrogen Source"),
                               choices = list(res_N = "res_N", 
                                              torst_N = "torst_N", 
@@ -107,11 +98,31 @@ ui <- fluidPage(theme = my_theme,
     #end widgets
     mainPanel(
       tabsetPanel(type = "tabs",
-                  tabPanel("Map", plotOutput(outputId = "ma_reef_map")),
-                  tabPanel("Graph", plotOutput(outputId = "ma_reef")),
-                  tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
+                  tabPanel("Map", plotlyOutput(outputId = "ma_reef_map"))
       ) # end main panel
     )) # end sidebarLayout
+  ),
+  tabPanel("Graphs",
+         titlePanel("Meso-American Reef Watershed Basin Impacts"),
+         sidebarLayout(
+           sidebarPanel("Select which areas and pollutants you'd like to investigate:",
+                        dateRangeInput("dates",
+                                       label = h5("Date Range")
+                        ),
+                        checkboxGroupInput(inputId = "country_check", label = h5("Country"),
+                                           choices = c("Mexico" = "Mexico", 
+                                                       "Honduras" = "Honduras", 
+                                                       "Guatemala" = "Guatemala",
+                                                       "Belize" = "Belize"),
+                                           selected = "Mexico"),
+           ), 
+           #end widgets
+           mainPanel(
+             tabsetPanel(type = "tabs",
+                         tabPanel("Graph", plotOutput(outputId = "ma_reef")),
+                         tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
+             ) # end main panel
+           )) # end sidebarLayout
 )))
 
 server <- function(input, output) {
@@ -146,13 +157,13 @@ server <- function(input, output) {
   })
   
   # map output 1
-  output$ma_reef_map <- renderPlot({
-   # ggplotly(
+  output$ma_reef_map <- renderPlotly({
+    ggplotly(
       ggplot() +
       geom_sf(data = top_watershed_sf) +
       geom_sf(data = map_reactor(), aes(fill = map_reactor()$N_quantity)) + #change back to just data=basins_sf? no!
       theme_minimal()
-   # )
+    )
   })
 
   # this code below should add text to plotly but not working 
