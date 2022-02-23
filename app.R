@@ -107,7 +107,7 @@ ui <- fluidPage(theme = my_theme,
     #end widgets
     mainPanel(
       tabsetPanel(type = "tabs",
-                  tabPanel("Map", plotOutput(outputId = "ma_reef_map")),
+                  tabPanel("Map", plotlyOutput(outputId = "ma_reef_map")),
                   tabPanel("Graph", plotOutput(outputId = "ma_reef")),
                   tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
       ) # end main panel
@@ -146,13 +146,13 @@ server <- function(input, output) {
   })
   
   # map output 1
-  output$ma_reef_map <- renderPlot({
-   # ggplotly(
+  output$ma_reef_map <- renderPlotly({
+    ggplotly(
       ggplot() +
       geom_sf(data = top_watershed_sf) +
       geom_sf(data = map_reactor(), aes(fill = map_reactor()$N_quantity)) + #change back to just data=basins_sf? no!
       theme_minimal()
-   # )
+    )
   })
 
   # this code below should add text to plotly but not working 
