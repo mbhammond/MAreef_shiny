@@ -144,8 +144,9 @@ server <- function(input, output) {
   
   country_select_long_2 <- reactive({
     basins_long %>%
-      filter(country_c_80 %in% input$country_check) %>% 
-      filter(n_quantity > 0)
+      filter(country_c_80 %in% input$country_check)
+     # filter(source == input$pollutant_check_2)
+     # filter(n_quantity > 0)
   })
   
   country_select <- reactive({
@@ -159,11 +160,11 @@ server <- function(input, output) {
       filter(source == input$pollutant_check)
   })
   
-  pollutant_reactor <- reactive({
-    basins_long %>% 
-      filter(source == input$pollutant_check_2,
-             country_c_80 %in% input$country_check)
-  })
+  # pollutant_reactor <- reactive({
+  #   basins_long %>% 
+  #     filter(source == input$pollutant_check_2,
+  #            country_c_80 %in% input$country_check)
+  # })
   
   # ???
   output$value <- renderPrint({input$dates})
