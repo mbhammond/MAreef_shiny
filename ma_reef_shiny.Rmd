@@ -52,12 +52,17 @@ seagrass_df <- seagrass_sf %>%
   as.data.frame() %>% 
   select(-geometry)
 
+reef_df <- reef_sf %>% 
+  as.data.frame() %>% 
+  select(-geometry)
+
 head(top_watershed_df)
 head(basins_df)
 head(seagrass_df)
+head(reef_df)
 
 ggplot() +
-  geom_sf(data = top_watershed_sf) +
+ # geom_sf(data = top_watershed_sf) +
   geom_sf(data = reef_sf) +
   geom_sf(data = seagrass_sf) +
   geom_sf(data = basins_sf, aes(fill = lvstc_N)) +

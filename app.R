@@ -97,8 +97,7 @@ ui <- fluidPage(theme = my_theme,
     ), 
     #end widgets
     mainPanel(
-      tabsetPanel(type = "tabs",
-                  tabPanel("Map", plotlyOutput(outputId = "ma_reef_map"))
+      tabsetPanel(plotlyOutput(outputId = "ma_reef_map"))
       ) # end main panel
     )) # end sidebarLayout
   ),
@@ -123,7 +122,7 @@ ui <- fluidPage(theme = my_theme,
                          tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
              ) # end main panel
            )) # end sidebarLayout
-)))
+         ))
 
 server <- function(input, output) {
   
@@ -172,6 +171,7 @@ server <- function(input, output) {
       theme_minimal()
     )
   })
+  
 
   # this code below should add text to plotly but not working 
   # aes(text = paste("Source: ", map_reactor()$source,
