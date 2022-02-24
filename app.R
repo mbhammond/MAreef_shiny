@@ -173,12 +173,6 @@ server <- function(input, output) {
     )
   })
 
-  # this code below should add text to plotly but not working 
-  # aes(text = paste("Source: ", map_reactor()$source,
-  #                  "<br>Nitrogen: ", 
-  #                  map_reactor()$N_quantity,
-  #                  "<br> UNITS")
-  # )
 }
 
 shinyApp(ui = ui, server = server)
