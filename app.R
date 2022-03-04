@@ -10,6 +10,7 @@ library(janitor)
 library(sf)
 library(plotly)
 library(ggbeeswarm)
+library(DT)
 
 # -----------------------
 ### all data input
@@ -38,6 +39,10 @@ top_watershed_sf <- read_sf(here('data/spatial/top_20_watersheds.shp'))
 basins_long_graph <- basins_long %>% 
   group_by(admn_bn_c_80, source, country_c_80) %>%
   summarize(n_total = sum(n_quantity))
+
+reef_admin_edit <- reef_admin %>% 
+  group_by(name_c_80, country_c_80) %>% 
+  summarize(n_area_total = sum(area_km2_n_24_15))
 
 # ---------------------------------------
 
@@ -136,18 +141,30 @@ ui <- fluidPage(theme = my_theme,
                            tabPanel("Bleh",
                                     titlePanel("Meso-American Reef Watershed Basin Impacts"),
                                     sidebarLayout(
-                                      sidebarPanel("Select bleh bleh bleh"
+                                      sidebarPanel("Select bleh bleh bleh",
+                                                   sliderInput("nitrogen_area", label = h3("Nitrogen Area"),
+                                                               min = 0,
+                                                               max = 250,
+                                                               value = c(100, 130))
                                                    
                                         
                                       ), #end widgets
                                       mainPanel(
+                                        tabsetPanel(type = "tabs",
+                                                    tabPanel("Nitrogen Affected Reef Area", dataTableOutput(outputId = "n_reef_area")))
                                         
-                                      )
-                                    )
+                                      ) 
+                                    ) 
                                 
                                     )))
 
 server <- function(input, output) {
+  
+  # Slider nitrogen graph
+#  nitrogen_reef_area <- reactive({
+ #   reef_admin_edit %>% 
+  #    filter(n_area_total )
+ # })
   
   # reactive output for selected countries
   country_select_long <- reactive({
@@ -222,6 +239,11 @@ server <- function(input, output) {
         )) + #change back to just data=basins_sf? no!
         theme_minimal()
     )
+  })
+  
+  # output Nitrogren reef area
+  output$n_reef_area <- DT::renderDataTable({
+    dt <- reef_admin_edit[reef_admin_edit$n_area_total >= input$nitrogen_area[1] & reef_admin_edit$n_area_total <= input$nitrogen_area[2], ]
   })
   
 }

@@ -79,6 +79,11 @@ ggplot() +
   summarize(n_total = sum(n_quantity))
 ```
  
-  
+```{r}
+reef_admin_edit <- reef_admin %>% 
+  group_by(name_c_80, country_c_80) %>% 
+  summarize(n_area_total = sum(area_km2_n_24_15))
+```
+
 
  
