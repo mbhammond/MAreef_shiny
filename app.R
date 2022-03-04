@@ -112,9 +112,6 @@ ui <- fluidPage(theme = my_theme,
                                     titlePanel("Meso-American Reef Watershed Basin Impacts"),
                                     sidebarLayout(
                                       sidebarPanel("Select which areas and pollutants you'd like to investigate:",
-                                                   dateRangeInput("dates",
-                                                                  label = h5("Date Range")
-                                                   ),
                                                    checkboxGroupInput(inputId = "country_check", label = h5("Country"),
                                                                       choices = c("Mexico" = "Mexico",
                                                                                   "Honduras" = "Honduras",
@@ -126,16 +123,29 @@ ui <- fluidPage(theme = my_theme,
                                                                                torst_n_n_24_15 = "torst_n_n_24_15",
                                                                                crops_n_n_24_15 = "crops_n_n_24_15",
                                                                                lvstc_n_n_24_15 = "lvstc_n_n_24_15"),
-                                                                selected = "res_N")
+                                                                selected = "res_n_n_24_15")
                                       ),
                                       #end widgets
                                       mainPanel(
                                         tabsetPanel(type = "tabs",
-                                                    tabPanel("Graph", plotOutput(outputId = "ma_reef")),
-                                                    tabPanel("Table", tableOutput(outputId = "ma_reef_tab"))
+                                                    tabPanel("Nitrogen Effluents by Watershed", plotlyOutput(outputId = "ma_reef")),
+                                                    tabPanel("Total Nitrogen Effluent by Country", tableOutput(outputId = "ma_reef_tab"))
                                         ) # end main panel
                                       )) # end sidebarLayout
-                           )))
+                           ),
+                           tabPanel("Bleh",
+                                    titlePanel("Meso-American Reef Watershed Basin Impacts"),
+                                    sidebarLayout(
+                                      sidebarPanel("Select bleh bleh bleh"
+                                                   
+                                        
+                                      ), #end widgets
+                                      mainPanel(
+                                        
+                                      )
+                                    )
+                                
+                                    )))
 
 server <- function(input, output) {
   
@@ -176,15 +186,18 @@ server <- function(input, output) {
   output$value <- renderPrint({input$dates})
   
   # plot output 1
-  output$ma_reef <- renderPlot({
+  output$ma_reef <- renderPlotly({
  #   country_select_long_2 %>% 
   #    group_by(admn_bn_c_80) %>% 
-        ggplot(data = country_select_long_2(),
+      ggplotly(
+          ggplot(data = country_select_long_2(),
            aes(x = admn_bn_c_80, y = n_total)) +
       geom_col(aes(fill = admn_bn_c_80)) +
-      facet_wrap( ~country_c_80, scales = "free") +
+      facet_grid(~country_c_80, scales = "free") +
       coord_flip() +
-      theme_minimal()
+      theme_minimal() +
+        theme(legend.position = "none")
+      )
   })
   
   # table output 1
