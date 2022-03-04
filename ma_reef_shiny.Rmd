@@ -29,7 +29,7 @@ reef_admin <- read_csv(here("data", "reef_admin.csv")) %>% clean_names()
 
 basins <- read_csv(here("data", "basins_admin.csv")) %>% clean_names()
 
-basins_long <- basins %>% pivot_longer(res_n_n_24_15:lvstc_n_n_24_15, names_to = "source", values_to = "N_quantity")
+basins_long <- basins %>% pivot_longer(res_n_n_24_15:lvstc_n_n_24_15, names_to = "source", values_to = "n_quantity")
 ```
 
 ```{r}
@@ -73,4 +73,12 @@ ggplot() +
   theme_minimal()
 ```
  
+```{r}
+ basins_long_graph <- basins_long %>% 
+  group_by(admn_bn_c_80, source, country_c_80) %>%
+  summarize(n_total = sum(n_quantity))
+```
+ 
+  
+
  

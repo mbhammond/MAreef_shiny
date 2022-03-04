@@ -35,6 +35,9 @@ basins_sf_long <- basins_sf %>% pivot_longer(res_N:lvstc_N, names_to = "source",
 top_watershed_sf <- read_sf(here('data/spatial/top_20_watersheds.shp'))
 
 
+basins_long_graph <- basins_long %>% 
+  group_by(admn_bn_c_80, source, country_c_80) %>%
+  summarize(n_total = sum(n_quantity))
 
 # ---------------------------------------
 
@@ -119,10 +122,10 @@ ui <- fluidPage(theme = my_theme,
                                                                                   "Belize" = "Belize"),
                                                                       selected = "Mexico"),
                                                    radioButtons("pollutant_check_2", label = h5("Nitrogen Source"),
-                                                                choices = list(res_N = "res_N",
-                                                                               torst_N = "torst_N",
-                                                                               crops_N = "crops_N",
-                                                                               lvstc_N = "lvstc_N"),
+                                                                choices = list(res_n_n_24_15 = "res_n_n_24_15",
+                                                                               torst_n_n_24_15 = "torst_n_n_24_15",
+                                                                               crops_n_n_24_15 = "crops_n_n_24_15",
+                                                                               lvstc_n_n_24_15 = "lvstc_n_n_24_15"),
                                                                 selected = "res_N")
                                       ),
                                       #end widgets
@@ -143,8 +146,11 @@ server <- function(input, output) {
   }) #end country check reactive
   
   country_select_long_2 <- reactive({
-    basins_long %>%
-      filter(country_c_80 %in% input$country_check)
+    basins_long_graph %>%
+      filter(country_c_80 %in% input$country_check,
+             source == input$pollutant_check_2) #%>%
+     # group_by(admn_bn_c_80) %>% 
+     # summarize(total_n_basin = sum(n_quantity))
      # filter(source == input$pollutant_check_2)
      # filter(n_quantity > 0)
   })
@@ -171,9 +177,13 @@ server <- function(input, output) {
   
   # plot output 1
   output$ma_reef <- renderPlot({
-    ggplot(data = country_select_long_2(),
-           aes(x = country_c_80, y = n_quantity)) +
-      geom_beeswarm(aes(color = source), cex = .5) +
+ #   country_select_long_2 %>% 
+  #    group_by(admn_bn_c_80) %>% 
+        ggplot(data = country_select_long_2(),
+           aes(x = admn_bn_c_80, y = n_total)) +
+      geom_col(aes(fill = admn_bn_c_80)) +
+      facet_wrap( ~country_c_80, scales = "free") +
+      coord_flip() +
       theme_minimal()
   })
   
