@@ -94,23 +94,21 @@ ui <- fluidPage(theme = my_theme,
                            tabPanel("Maps",
                                     titlePanel("Meso-American Reef Watershed Basin Impacts"),
                                     sidebarLayout(
-                                      sidebarPanel("Select which areas and pollutants you'd like to investigate:",
-                                                   selectInput("select", label = h5("Region"),
-                                                               choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3),
-                                                               selected = 1),
+                                      sidebarPanel("Select which Nitrogen source you would like to investigate:",
                                                    radioButtons("pollutant_check", label = h5("Nitrogen Source"),
-                                                                choices = list(res_N = "res_N",
-                                                                               torst_N = "torst_N",
-                                                                               crops_N = "crops_N",
-                                                                               lvstc_N = "lvstc_N"),
+                                                                choices = list(Residential = "res_N",
+                                                                               Tourists = "torst_N",
+                                                                               Crops = "crops_N",
+                                                                               Livestock = "lvstc_N"),
                                                                 selected = "res_N"),
                                                    
                                       ),
                                       #end widgets
                                       mainPanel(
-                                        tabsetPanel(type = "tabs",
-                                                    tabPanel("Map", plotlyOutput(outputId = "ma_reef_map"))
-                                        ) # end main panel
+                                        plotlyOutput(outputId = "ma_reef_map")
+                                        # tabsetPanel(type = "tabs",
+                                        #             tabPanel("Map", plotlyOutput(outputId = "ma_reef_map"))
+                                        # ) # end main panel
                                       )) # end sidebarLayout
                            ),
                            tabPanel("Graphs",
@@ -124,10 +122,10 @@ ui <- fluidPage(theme = my_theme,
                                                                                   "Belize" = "Belize"),
                                                                       selected = "Mexico"),
                                                    radioButtons("pollutant_check_2", label = h5("Nitrogen Source"),
-                                                                choices = list(res_n_n_24_15 = "res_n_n_24_15",
-                                                                               torst_n_n_24_15 = "torst_n_n_24_15",
-                                                                               crops_n_n_24_15 = "crops_n_n_24_15",
-                                                                               lvstc_n_n_24_15 = "lvstc_n_n_24_15"),
+                                                                choices = list(Residential = "res_n_n_24_15",
+                                                                               Tourists = "torst_n_n_24_15",
+                                                                               Crops = "crops_n_n_24_15",
+                                                                               Livestock = "lvstc_n_n_24_15"),
                                                                 selected = "res_n_n_24_15")
                                       ),
                                       #end widgets
@@ -138,11 +136,11 @@ ui <- fluidPage(theme = my_theme,
                                         ) # end main panel
                                       )) # end sidebarLayout
                            ),
-                           tabPanel("Bleh",
+                           tabPanel("Reef Impact",
                                     titlePanel("Meso-American Reef Watershed Basin Impacts"),
                                     sidebarLayout(
-                                      sidebarPanel("Select bleh bleh bleh",
-                                                   sliderInput("nitrogen_area", label = h3("Nitrogen Area"),
+                                      sidebarPanel("Select the range of reef area that is affected by Nitrogen pollution that you would like to investigate:",
+                                                   sliderInput("nitrogen_area", label = h3("Nitrogen Affected Reef Area"),
                                                                min = 0,
                                                                max = 250,
                                                                value = c(100, 130))
@@ -150,9 +148,10 @@ ui <- fluidPage(theme = my_theme,
                                         
                                       ), #end widgets
                                       mainPanel(
-                                        tabsetPanel(type = "tabs",
-                                                    tabPanel("Nitrogen Affected Reef Area", dataTableOutput(outputId = "n_reef_area")))
-                                        
+                                        dataTableOutput(outputId = "n_reef_area")
+                                        # tabsetPanel(type = "tabs",
+                                        #             tabPanel("Nitrogen Affected Reef Area", dataTableOutput(outputId = "n_reef_area")))
+                                        # 
                                       ) 
                                     ) 
                                 
