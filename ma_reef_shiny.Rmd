@@ -29,7 +29,13 @@ reef_admin <- read_csv(here("data", "reef_admin.csv")) %>% clean_names()
 
 basins <- read_csv(here("data", "basins_admin.csv")) %>% clean_names()
 
-basins_long <- basins %>% pivot_longer(res_n_n_24_15:lvstc_n_n_24_15, names_to = "source", values_to = "n_quantity")
+basins_long <- basins %>% pivot_longer(res_n_n_24_15:lvstc_n_n_24_15, names_to = "source", values_to = "n_quantity") %>% 
+  mutate(source = case_when(
+    source == "res_n_n_24_15" ~ "Residents",
+    source == "torst_n_n_24_15" ~ "Tourists",
+    source == "lvstc_n_n_24_15" ~ "Livestock",
+    source == "crops_n_n_24_15" ~ "Crops")) %>% 
+  rename(Country = country_c_80)
 ```
 
 ```{r}
@@ -59,6 +65,10 @@ seagrass_df <- seagrass_sf %>%
 reef_df <- reef_sf %>% 
   as.data.frame() %>% 
   select(-geometry)
+
+basins_long_graph <- basins_long %>%
+  group_by(admn_bn_c_80, source, country_c_80) %>%
+  summarize(n_total = sum(n_quantity))
 
 head(top_watershed_df)
 head(basins_df)

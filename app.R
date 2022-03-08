@@ -36,12 +36,12 @@ basins_sf_long <- basins_sf %>% pivot_longer(res_N:lvstc_N, names_to = "source",
 top_watershed_sf <- read_sf(here('data/spatial/top_20_watersheds.shp'))
 
 
-basins_long_graph <- basins_long %>% 
+basins_long_graph <- basins_long %>%
   group_by(admn_bn_c_80, source, country_c_80) %>%
   summarize(n_total = sum(n_quantity))
 
-reef_admin_edit <- reef_admin %>% 
-  group_by(name_c_80, country_c_80) %>% 
+reef_admin_edit <- reef_admin %>%
+  group_by(name_c_80, country_c_80) %>%
   summarize(n_area_total = sum(area_km2_n_24_15))
 
 # ---------------------------------------
@@ -145,25 +145,25 @@ ui <- fluidPage(theme = my_theme,
                                                                max = 250,
                                                                value = c(100, 130))
                                                    
-                                        
+                                                   
                                       ), #end widgets
                                       mainPanel(
                                         dataTableOutput(outputId = "n_reef_area")
                                         # tabsetPanel(type = "tabs",
                                         #             tabPanel("Nitrogen Affected Reef Area", dataTableOutput(outputId = "n_reef_area")))
-                                        # 
-                                      ) 
-                                    ) 
-                                
-                                    )))
+                                        #
+                                      )
+                                    )
+                                    
+                           )))
 
 server <- function(input, output) {
   
   # Slider nitrogen graph
-#  nitrogen_reef_area <- reactive({
- #   reef_admin_edit %>% 
+  #  nitrogen_reef_area <- reactive({
+  #   reef_admin_edit %>%
   #    filter(n_area_total )
- # })
+  # })
   
   # reactive output for selected countries
   country_select_long <- reactive({
@@ -175,10 +175,10 @@ server <- function(input, output) {
     basins_long_graph %>%
       filter(country_c_80 %in% input$country_check,
              source == input$pollutant_check_2) #%>%
-     # group_by(admn_bn_c_80) %>% 
-     # summarize(total_n_basin = sum(n_quantity))
-     # filter(source == input$pollutant_check_2)
-     # filter(n_quantity > 0)
+    # group_by(admn_bn_c_80) %>%
+    # summarize(total_n_basin = sum(n_quantity))
+    # filter(source == input$pollutant_check_2)
+    # filter(n_quantity > 0)
   })
   
   country_select <- reactive({
@@ -193,34 +193,40 @@ server <- function(input, output) {
   })
   
   # pollutant_reactor <- reactive({
-  #   basins_long %>% 
+  #   basins_long %>%
   #     filter(source == input$pollutant_check_2,
   #            country_c_80 %in% input$country_check)
   # })
   
-  # ???
   output$value <- renderPrint({input$dates})
   
   # plot output 1
   output$ma_reef <- renderPlotly({
- #   country_select_long_2 %>% 
-  #    group_by(admn_bn_c_80) %>% 
-      ggplotly(
-          ggplot(data = country_select_long_2(),
-           aes(x = admn_bn_c_80, y = n_total)) +
-      geom_col(aes(fill = admn_bn_c_80)) +
-      facet_grid(~country_c_80, scales = "free") +
-      coord_flip() +
-      theme_minimal() +
+    ggplotly(
+        ggplot(data = country_select_long_2(),
+             aes(x = admn_bn_c_80, y = n_total)) +
+        geom_col(aes(fill = admn_bn_c_80)) +
+        facet_grid(~country_c_80, scales = "free") +
+          labs(x = "Watershed Basin",
+               y = "Total Nitrogen (kg N/year)",
+               title = "Nitrogen by Water Basin in Selected Country") +
+        coord_flip() +
+        theme_minimal() +
         theme(legend.position = "none")
-      )
+    )
   })
   
   # table output 1
   output$ma_reef_tab <- renderTable({
     country_select_long() %>%
-      group_by(country_c_80) %>%
-      summarize(total_n = sum(n_quantity))
+      mutate(source = case_when(
+        source == "res_n_n_24_15" ~ "Residents",
+        source == "torst_n_n_24_15" ~ "Tourists",
+        source == "lvstc_n_n_24_15" ~ "Livestock",
+        source == "crops_n_n_24_15" ~ "Crops")) %>% 
+      rename(Country = country_c_80) %>% 
+      group_by(Country) %>%
+      summarize(Nitrogen = sum(n_quantity))
   })
   
   # map output 1
@@ -236,6 +242,8 @@ server <- function(input, output) {
                                                        map_reactor()$N_quantity,
                                                        " UNITS")
         )) + #change back to just data=basins_sf? no!
+        labs(fill = "Nitrogen (kg/year)",
+             title = "Nitrogen Total within the Water Basins of MesoAmerican Reef Region") +
         theme_minimal()
     )
   })
