@@ -226,7 +226,7 @@ server <- function(input, output) {
         source == "crops_n_n_24_15" ~ "Crops")) %>% 
       rename(Country = country_c_80) %>% 
       group_by(Country) %>%
-      summarize(Nitrogen = sum(n_quantity))
+      summarize(Nitrogen = (sum(n_quantity)))
   })
   
   # map output 1
