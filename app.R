@@ -59,7 +59,7 @@ my_theme <- bs_theme(
 
 
 ui <- fluidPage(theme = my_theme,
-                navbarPage(emo::ji("pig2"),
+                navbarPage(emo::ji("ocean"),
                            tabPanel("Introduction",
                                     titlePanel(h2("Meso-American Reef Watershed Basin Impacts", align = "center")),
                                     fluidRow(column(3,
