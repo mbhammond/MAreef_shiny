@@ -63,9 +63,9 @@ ui <- fluidPage(theme = my_theme,
                            tabPanel("Introduction",
                                     titlePanel(h2("Meso-American Reef Watershed Basin Impacts", align = "center")),
                                     fluidRow(column(3,
-                                                    img(src = "NCEAS-Stacked-4C_0.png", width = "300px"),
+                                                    img(src = "NCEAS-Stacked-4C_0.png", width = "275px"),
                                                     br(),
-                                                    img(src = "mesoreef.png", width = "300px")
+                                                    img(src = "mesoreef.png", width = "275px")
                                     ),
                                     column(6,
                                            h5("Welcome to the watershed effluent analysis portal!"),
@@ -91,7 +91,7 @@ ui <- fluidPage(theme = my_theme,
                                     ),
                                     column(3)
                                     )),
-                           tabPanel("Maps",
+                           tabPanel("Map of Waterbasins",
                                     titlePanel("Meso-American Reef Watershed Basin Impacts"),
                                     sidebarLayout(
                                       sidebarPanel("Select which Nitrogen source you would like to investigate:",
@@ -111,7 +111,7 @@ ui <- fluidPage(theme = my_theme,
                                         # ) # end main panel
                                       )) # end sidebarLayout
                            ),
-                           tabPanel("Graphs",
+                           tabPanel("Pollutant Source",
                                     titlePanel("Meso-American Reef Watershed Basin Impacts"),
                                     sidebarLayout(
                                       sidebarPanel("Select which areas and pollutants you'd like to investigate:",
@@ -226,7 +226,7 @@ server <- function(input, output) {
         source == "crops_n_n_24_15" ~ "Crops")) %>% 
       rename(Country = country_c_80) %>% 
       group_by(Country) %>%
-      summarize(Nitrogen = (sum(n_quantity)))
+      summarize(Nitrogen = sum(n_quantity))
   })
   
   # map output 1
@@ -250,8 +250,16 @@ server <- function(input, output) {
   
   # output Nitrogren reef area
   output$n_reef_area <- DT::renderDataTable({
-    dt <- reef_admin_edit[reef_admin_edit$n_area_total >= input$nitrogen_area[1] & reef_admin_edit$n_area_total <= input$nitrogen_area[2], ]
-  })
+    dt <- reef_admin_edit[reef_admin_edit$n_area_total >= input$nitrogen_area[1] & reef_admin_edit$n_area_total <= input$nitrogen_area[2], ]}, 
+    options = list(
+      autoWidth = TRUE,
+      info = FALSE,
+      columns = list(
+        list(title = ""),
+        list(title = "Name of Reef"),
+        list(title = "Country"),
+        list(title = "Area Impacted by Nitrogen (km2)"))
+    ))
   
 }
 
