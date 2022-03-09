@@ -105,7 +105,9 @@ ui <- fluidPage(theme = my_theme,
                                       ),
                                       #end widgets
                                       mainPanel(
-                                        plotlyOutput(outputId = "ma_reef_map")
+                                        plotlyOutput(outputId = "ma_reef_map"),
+                                        br(),
+                                        "MAP TAKEAWAYS HERE"
                                         # tabsetPanel(type = "tabs",
                                         #             tabPanel("Map", plotlyOutput(outputId = "ma_reef_map"))
                                         # ) # end main panel
@@ -131,7 +133,7 @@ ui <- fluidPage(theme = my_theme,
                                       #end widgets
                                       mainPanel(
                                         tabsetPanel(type = "tabs",
-                                                    tabPanel("Nitrogen Effluents by Watershed", plotlyOutput(outputId = "ma_reef")),
+                                                    tabPanel("Nitrogen Effluents by Watershed", plotlyOutput(outputId = "ma_reef"), br(), "GRAPH TAKEAWAYS HERE"),
                                                     tabPanel("Total Nitrogen Effluent by Country", tableOutput(outputId = "ma_reef_tab"))
                                         ) # end main panel
                                       )) # end sidebarLayout
