@@ -114,7 +114,10 @@ ui <- fluidPage(theme = my_theme,
                                          br(),
                                          p(em("Developed by Sarah Hamilton and Margaret Hammond"), style = "text-align:center")
                                     ),
-                                    column(3)
+                                    column(3,
+                                           br(),
+                                           img(src = "MAR_map.png", width = "275px")
+                                           )
                                     )),
                            tabPanel("Map of Watershed Basin",
                                     titlePanel("Mesoamerican Reef Watershed Basin Impacts"),
@@ -325,7 +328,7 @@ server <- function(input, output) {
                                                        "<br>Source: ", map_reactor()$source,
                                                        "<br>Nitrogen: ",
                                                        map_reactor()$N_quantity,
-                                                       " UNITS")
+                                                       "kg/y")
         )) + #change back to just data=basins_sf? no!
         labs(fill = "Nitrogen (kg/year)",
              title = "Nitrogen Total within the Water Basins of Mesoamerican Reef Region") +
