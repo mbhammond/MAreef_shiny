@@ -44,6 +44,27 @@ reef_admin_edit <- reef_admin %>%
   group_by(name_c_80, country_c_80) %>%
   summarize(n_area_total = sum(area_km2_n_24_15))
 
+### color palettes
+# Livestock:
+lives_pal <- c("#E3AA64","#E8B87D","#ECC696","#F1D5AF","#F6E3C7","#FAF1E0","#FFFFF9")
+
+# Residential:
+res_pal <- c("#015653","#266F6D","#4B8887","#71A1A1","#96BABA","#BBD3D4","#E0ECEE")
+
+# Crops:
+crops_pal <- c("#F4EB89","#F5ED99","#F6EFAA","#F7F2BA","#F7F4CA","#F8F6DB","#F9F8EB")
+
+# Tourism:
+tourism_pal <- c("#7064A6","#867AB4","#9C90C2","#B2A6D0","#C7BBDE","#DDD1EC","#F3E7FA")
+  
+# DF of color palettes
+colors <- rbind.data.frame(lives_pal, res_pal, crops_pal, tourism_pal)
+#colors[1] = livestock
+#colors[2] = residential
+#colors[3] = crops
+#colors[4] = tourism
+
+
 # ---------------------------------------
 
 # In console, run bs_theme_preview() to play around with different things!
@@ -272,7 +293,7 @@ server <- function(input, output) {
                title = "Nitrogen by Water Basin in Selected Country") +
         coord_flip() +
         theme_minimal() +
-        theme(legend.position = "none")
+        theme(legend.position = "none") 
     )
   })
   
@@ -307,6 +328,7 @@ server <- function(input, output) {
         labs(fill = "Nitrogen (kg/year)",
              title = "Nitrogen Total within the Water Basins of Mesoamerican Reef Region") +
         theme_minimal()
+      #  scale_fill_gradient(low = "#000000", high = "#111111") #DELETE THIS IF COLOR CHANGE DOESN'T WORK
     )
   })
   
