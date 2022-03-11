@@ -61,7 +61,7 @@ my_theme <- bs_theme(
 ui <- fluidPage(theme = my_theme,
                 navbarPage(emo::ji("ocean"),
                            tabPanel("Introduction",
-                                    titlePanel(h2("Meso-American Reef Watershed Basin Impacts", align = "center")),
+                                    titlePanel(h2("Mesoamerican Reef Watershed Basin Impacts", align = "center")),
                                     fluidRow(column(3,
                                                     img(src = "NCEAS-Stacked-4C_0.png", width = "275px"),
                                                     br(),
@@ -94,7 +94,7 @@ ui <- fluidPage(theme = my_theme,
                                     column(3)
                                     )),
                            tabPanel("Map of Waterbasins",
-                                    titlePanel("Meso-American Reef Watershed Basin Impacts"),
+                                    titlePanel("Mesoamerican Reef Watershed Basin Impacts"),
                                     sidebarLayout(
                                       sidebarPanel("Select which nitrogen source you would like to investigate:",
                                                    radioButtons("pollutant_check", label = h5("Nitrogen Source"),
@@ -109,6 +109,8 @@ ui <- fluidPage(theme = my_theme,
                                       mainPanel(
                                         plotlyOutput(outputId = "ma_reef_map"),
                                         br(),
+                                        h5("Mesoamerican Reef Effluent Pollution"),
+                                        br(),
                                         p("The Mesoamerican Reef (MAR) spans across the coastlines of four countries – 
                                         Mexico, Belize, Guatemala and Honduras – and is the largest continuous barrier reef 
                                         in the Western Hemisphere, extending over 1000 km with four off-shelf atolls. However, 
@@ -119,11 +121,11 @@ ui <- fluidPage(theme = my_theme,
                                         southern half containing systems that are surface-water driven, and the northern half dominated by 
                                         ground-water driven systems. For all datasets, we used the most recent year available."),
                                        br(), 
-                                       p("N effluent resulting from crop and livestock production was modeled using global spatially resolved 
+                                       p("Nitrogen effluent resulting from crop and livestock production was modeled using global spatially resolved 
                                         models that estimate tons of N leached per year from the production 
                                         of 27 different crops and 20 different livestock types."),
                                          br(),
-                                        p("To model N effluent from tourism and resident, wastewater was measured by combining population estimates of permanent residents or  
+                                        p("To model nitrogen effluent from tourism and resident, wastewater was measured by combining population estimates of permanent residents or  
                                         tourists visiting the MAR region with per capita protein consumption and the proportion of the 
                                         population’s access to different wastewater treatment facilities (sewer systems, septic systems, or 
                                         open defecation).")
@@ -134,7 +136,7 @@ ui <- fluidPage(theme = my_theme,
                                       )) # end sidebarLayout
                            ),
                            tabPanel("Pollutant Source",
-                                    titlePanel("Meso-American Reef Watershed Basin Impacts"),
+                                    titlePanel("Mesoamerican Reef Watershed Basin Impacts"),
                                     sidebarLayout(
                                       sidebarPanel("Select which countries and nintrogen source you'd like to investigate:",
                                                    checkboxGroupInput(inputId = "country_check", label = h5("Country"),
@@ -159,7 +161,7 @@ ui <- fluidPage(theme = my_theme,
                                       )) # end sidebarLayout
                            ),
                            tabPanel("Reef Impact",
-                                    titlePanel("Meso-American Reef Watershed Basin Impacts"),
+                                    titlePanel("Mesoamerican Reef Watershed Basin Impacts"),
                                     sidebarLayout(
                                       sidebarPanel("Select the range of reef area that is affected by Nitrogen pollution that you would like to investigate:",
                                                    sliderInput("nitrogen_area", label = h3("Nitrogen Affected Reef Area"),
@@ -170,7 +172,23 @@ ui <- fluidPage(theme = my_theme,
                                                    
                                       ), #end widgets
                                       mainPanel(
-                                        dataTableOutput(outputId = "n_reef_area")
+                                        dataTableOutput(outputId = "n_reef_area"),
+                                        br(),
+                                        h5("Nitrogen Reef Impact"),
+                                        br(),
+                                        p("Spatially, a substantial number of coral reefs had more than 50% of the aerial surface 
+                                          area exposed to N plumes, many of which came from smaller, nearshore watersheds close to
+                                          tourist hotspots (such as Utila, Honduras and Cozumel, Mexico). Areas where 100% of the 
+                                          coral reefs were exposed to diffused N include reefs off Guatemala Northern,
+                                          Central and Southern Quintana Roo, and Cozumel, Mexico, as well as reefs 
+                                          located within the Northern Barrier Complex of Belize and the Cayos Cochinos archipelago, 
+                                          Honduras (Figure 5D). Other areas where the majority of the reef was exposed to N plumes 
+                                          include the Central Barrier Complex of Belize (81%) and Utila, Honduras (70%). Just under 
+                                          half the reef area of the Southern Barrier Complex of Belize (46%) was exposed to plumes 
+                                          and less than one third of the reefs in Roatan were exposed. Reefs that had minimal or no 
+                                          direct exposure to the N plumes were located mostly in Belize."),
+                                        br(),
+                                        p()
                                         # tabsetPanel(type = "tabs",
                                         #             tabPanel("Nitrogen Affected Reef Area", dataTableOutput(outputId = "n_reef_area")))
                                         #
@@ -267,7 +285,7 @@ server <- function(input, output) {
                                                        " UNITS")
         )) + #change back to just data=basins_sf? no!
         labs(fill = "Nitrogen (kg/year)",
-             title = "Nitrogen Total within the Water Basins of MesoAmerican Reef Region") +
+             title = "Nitrogen Total within the Water Basins of Mesoamerican Reef Region") +
         theme_minimal()
     )
   })
