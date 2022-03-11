@@ -106,8 +106,7 @@ ui <- fluidPage(theme = my_theme,
                                          Mesoamerican Reef region. We aim to answer the question of what is the relative 
                                            contribution of different sources of excess N in coastal waters, and how do 
                                            these differences vary spatially? And how exposed are high biodiversity habitats to N pollution?"),
-                                         p("Now go ahead and click on 'Visualizations' and play around with the different
-                                         regions, dates, countries, and pollutants!"),
+                                         p("Now go ahead and click on the above tabs to play around with the different countries and pollutants!"),
                                          p("Data Citation: "),
                                          p("Berger, M. (2022),",  em('Nitrogen Impacts on the Mesoamerican Reef Region'), 
                                            "[Manuscript submitted for publication]. National Center for Ecological Analysis & Synthesis, UC Santa Barbara"),
