@@ -178,6 +178,8 @@ ui <- fluidPage(theme = my_theme,
                                         tabsetPanel(type = "tabs",
                                                     tabPanel("Nitrogen Effluents by Watershed", 
                                                              plotlyOutput(outputId = "ma_reef"), br(), 
+                                                             h5("Nitrogen Effluent by Country and Watershed Basin"),
+                                                             br(),
                                                              "A distinct north-south divide was observed in N effluent estimates from all 
                                                              four sources modeled, with Guatemalan and Honduran watersheds estimated to 
                                                              have higher N effluent than watersheds in Mexico and Belize. While N pollution from 
@@ -189,6 +191,8 @@ ui <- fluidPage(theme = my_theme,
                                                              Mexico, Belize City, Belize, and Bay Islands, Honduras."),
                                                     tabPanel("Total Nitrogen Effluent by Country", 
                                                              tableOutput(outputId = "ma_reef_tab"), br(), 
+                                                             h5("Nitrogen Effluent by Country and Watershed Basin"),
+                                                             br(),
                                                              "A distinct north-south divide was observed in N effluent estimates from all 
                                                              four sources modeled, with Guatemalan and Honduran watersheds estimated to 
                                                              have higher N effluent than watersheds in Mexico and Belize. While N pollution from 
