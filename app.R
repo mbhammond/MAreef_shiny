@@ -109,6 +109,8 @@ ui <- fluidPage(theme = my_theme,
                                          p("Now go ahead and click on 'Visualizations' and play around with the different
                                          regions, dates, countries, and pollutants!"),
                                          p("Data Citation: "),
+                                         p("Berger, M. (2022),",  em('Nitrogen Impacts on the Mesoamerican Reef Region'), 
+                                           "[Manuscript submitted for publication]. National Center for Ecological Analysis & Synthesis, UC Santa Barbara"),
                                          br(),
                                          p(em("Developed by Sarah Hamilton and Margaret Hammond"), style = "text-align:center")
                                     ),
@@ -143,7 +145,7 @@ ui <- fluidPage(theme = my_theme,
                                         ground-water driven systems. For all datasets, we used the most recent year available."),
                                        br(), 
                                        p("Nitrogen effluent resulting from crop and livestock production was modeled using global spatially resolved 
-                                        models that estimate tons of N leached per year from the production 
+                                        models that estimate tons of nitrogen leached per year from the production 
                                         of 27 different crops and 20 different livestock types."),
                                          br(),
                                         p("To model nitrogen effluent from tourism and resident, wastewater was measured by combining population estimates of permanent residents or  
@@ -195,7 +197,7 @@ ui <- fluidPage(theme = my_theme,
                                                              br(),
                                                              "A distinct north-south divide was observed in N effluent estimates from all 
                                                              four sources modeled, with Guatemalan and Honduran watersheds estimated to 
-                                                             have higher N effluent than watersheds in Mexico and Belize. While N pollution from 
+                                                             have higher N effluent than watersheds in Mexico and Belize. While nitrogen pollution from 
                                                              wastewater from residents and tourists was relatively low across the region, the 
                                                              watersheds located in Guatemala and Honduras accounted for approximately 72% of 
                                                              all wastewater input. Other watersheds associated with the highest level of N 
