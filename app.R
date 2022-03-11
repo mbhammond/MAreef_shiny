@@ -116,7 +116,7 @@ ui <- fluidPage(theme = my_theme,
                                     ),
                                     column(3)
                                     )),
-                           tabPanel("Map of Waterbasins",
+                           tabPanel("Map of Watershed Basin",
                                     titlePanel("Mesoamerican Reef Watershed Basin Impacts"),
                                     sidebarLayout(
                                       sidebarPanel("Select which nitrogen source you would like to investigate:",
