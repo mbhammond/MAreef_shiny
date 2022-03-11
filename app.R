@@ -136,7 +136,7 @@ ui <- fluidPage(theme = my_theme,
                            tabPanel("Pollutant Source",
                                     titlePanel("Meso-American Reef Watershed Basin Impacts"),
                                     sidebarLayout(
-                                      sidebarPanel("Select which countries and nintrogen source you'd like to investigate:",
+                                      sidebarPanel("Select which countries and nitrogen source you'd like to investigate:",
                                                    checkboxGroupInput(inputId = "country_check", label = h5("Country"),
                                                                       choices = c("Mexico" = "Mexico",
                                                                                   "Honduras" = "Honduras",
@@ -153,8 +153,28 @@ ui <- fluidPage(theme = my_theme,
                                       #end widgets
                                       mainPanel(
                                         tabsetPanel(type = "tabs",
-                                                    tabPanel("Nitrogen Effluents by Watershed", plotlyOutput(outputId = "ma_reef"), br(), "GRAPH TAKEAWAYS HERE"),
-                                                    tabPanel("Total Nitrogen Effluent by Country", tableOutput(outputId = "ma_reef_tab"))
+                                                    tabPanel("Nitrogen Effluents by Watershed", 
+                                                             plotlyOutput(outputId = "ma_reef"), br(), 
+                                                             "A distinct north-south divide was observed in N effluent estimates from all 
+                                                             four sources modeled, with Guatemalan and Honduran watersheds estimated to 
+                                                             have higher N effluent than watersheds in Mexico and Belize. While N pollution from 
+                                                             wastewater from residents and tourists was relatively low across the region, the 
+                                                             watersheds located in Guatemala and Honduras accounted for approximately 72% of 
+                                                             all wastewater input. Other watersheds associated with the highest level of N 
+                                                             pollution from tourism wastewater were primarily nearby tourist areas of the MAR 
+                                                             and thus near high diversity habitats such as coral reefs, for example Cancun, 
+                                                             Mexico, Belize City, Belize, and Bay Islands, Honduras."),
+                                                    tabPanel("Total Nitrogen Effluent by Country", 
+                                                             tableOutput(outputId = "ma_reef_tab"), br(), 
+                                                             "A distinct north-south divide was observed in N effluent estimates from all 
+                                                             four sources modeled, with Guatemalan and Honduran watersheds estimated to 
+                                                             have higher N effluent than watersheds in Mexico and Belize. While N pollution from 
+                                                             wastewater from residents and tourists was relatively low across the region, the 
+                                                             watersheds located in Guatemala and Honduras accounted for approximately 72% of 
+                                                             all wastewater input. Other watersheds associated with the highest level of N 
+                                                             pollution from tourism wastewater were primarily nearby tourist areas of the MAR 
+                                                             and thus near high diversity habitats such as coral reefs, for example Cancun, 
+                                                             Mexico, Belize City, Belize, and Bay Islands, Honduras.")
                                         ) # end main panel
                                       )) # end sidebarLayout
                            ),
