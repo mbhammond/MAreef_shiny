@@ -78,11 +78,13 @@ ui <- fluidPage(theme = my_theme,
                                          Nitrogen (N) primarily originates from agricultural crop production,
                                          livestock waste, and human sewage, as well as excretion from seabird and
                                          feral ungulates for some small atolls and cayes."),
-                                         p("Here we model four major sources of N pollution – crop production,
+                                         p("Here, we model four major sources of N pollution – crop production,
                                          livestock production, wastewater generated from permanent residents and
                                          wastewater generated from seasonal populations – at the regional scale,
                                          measuring inputs and impacts from 430 watersheds that drain into the
-                                         Mesoamerican Reef region."),
+                                         Mesoamerican Reef region. We aim to answer the question of what is the relative 
+                                           contribution of different sources of excess N in coastal waters, and how do 
+                                           these differences vary spatially? And how exposed are high biodiversity habitats to N pollution?"),
                                          p("Now go ahead and click on 'Visualizations' and play around with the different
                                          regions, dates, countries, and pollutants!"),
                                          p("Data Citation: "),
@@ -236,9 +238,9 @@ server <- function(input, output) {
     ggplotly(
       ggplot() +
         geom_sf(data = top_watershed_sf) +
-        tm_basemap(c(StreetMap = "OpenStreetMap",
-                     TopoMap = 
-                       "OpenTopoMap")) +
+        # tm_basemap(c(StreetMap = "OpenStreetMap",
+        #              TopoMap = 
+        #                "OpenTopoMap")) +
         geom_sf(data = map_reactor(), aes(fill = map_reactor()$N_quantity,
                                           text = paste("Basin ID: ",
                                                        map_reactor()$admn_bn,
