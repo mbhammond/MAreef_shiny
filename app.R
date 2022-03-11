@@ -109,7 +109,25 @@ ui <- fluidPage(theme = my_theme,
                                       mainPanel(
                                         plotlyOutput(outputId = "ma_reef_map"),
                                         br(),
-                                        "The Mesoamerican Reef (MAR) spans across the coastlines of four countries – Mexico, Belize, Guatemala and Honduras – and is the largest continuous barrier reef in the Western Hemisphere, extending over 1000 km with four off-shelf atolls. However, the barrier reef is a fragile ecosystem, considered critically endangered and at high risk of extreme degradation, with ocean acidification, hurricanes, pollution and fishing the primary threats. The region supports a robust and growing tourism industry, which includes resorts, watersport and cruise ship tourism, all of which are reliant upon healthy coastal ecosystems. The region contains 430 watersheds, with the southern half containing systems that are surface-water driven, and the northern half dominated by ground-water driven systems. For all datasets, we used the most recent year available. "
+                                        p("The Mesoamerican Reef (MAR) spans across the coastlines of four countries – 
+                                        Mexico, Belize, Guatemala and Honduras – and is the largest continuous barrier reef 
+                                        in the Western Hemisphere, extending over 1000 km with four off-shelf atolls. However, 
+                                        the barrier reef is a fragile ecosystem, considered critically endangered and at high risk 
+                                        of extreme degradation, with ocean acidification, hurricanes, pollution and fishing the primary threats. The 
+                                        region supports a robust and growing tourism industry, which includes resorts, watersport and cruise ship tourism, 
+                                        all of which are reliant upon healthy coastal ecosystems. The region contains 430 watersheds, with the 
+                                        southern half containing systems that are surface-water driven, and the northern half dominated by 
+                                        ground-water driven systems. For all datasets, we used the most recent year available."),
+                                       br(), 
+                                       p("N effluent resulting from crop and livestock production was modeled using global spatially resolved 
+                                        models that estimate tons of N leached per year from the production 
+                                        of 27 different crops and 20 different livestock types."),
+                                         br(),
+                                        p("To model N effluent from tourism and resident, wastewater was measured by combining population estimates of permanent residents or  
+                                        tourists visiting the MAR region with per capita protein consumption and the proportion of the 
+                                        population’s access to different wastewater treatment facilities (sewer systems, septic systems, or 
+                                        open defecation).")
+                                        
                                         # tabsetPanel(type = "tabs",
                                         #             tabPanel("Map", plotlyOutput(outputId = "ma_reef_map"))
                                         # ) # end main panel
@@ -238,9 +256,8 @@ server <- function(input, output) {
     ggplotly(
       ggplot() +
         geom_sf(data = top_watershed_sf) +
-        # tm_basemap(c(StreetMap = "OpenStreetMap",
-        #              TopoMap = 
-        #                "OpenTopoMap")) +
+      #  tm_basemap(c(StreetMap = "OpenStreetMap",
+      #               TopoMap = "OpenTopoMap")) +
         geom_sf(data = map_reactor(), aes(fill = map_reactor()$N_quantity,
                                           text = paste("Basin ID: ",
                                                        map_reactor()$admn_bn,
