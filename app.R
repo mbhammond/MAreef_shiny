@@ -42,7 +42,7 @@ basins_long_graph <- basins_long %>%
 
 reef_admin_edit <- reef_admin %>%
   group_by(name_c_80, country_c_80) %>%
-  summarize(n_area_total = sum(area_km2_n_24_15))
+  summarize(n_area_total = round(sum(area_km2_n_24_15), 0))
 
 # ---------------------------------------
 
@@ -196,17 +196,13 @@ ui <- fluidPage(theme = my_theme,
                                         br(),
                                         h5("Nitrogen Reef Impact"),
                                         br(),
-                                        p("Spatially, a substantial number of coral reefs had more than 50% of the aerial surface 
-                                          area exposed to N plumes, many of which came from smaller, nearshore watersheds close to
-                                          tourist hotspots (such as Utila, Honduras and Cozumel, Mexico). Areas where 100% of the 
-                                          coral reefs were exposed to diffused N include reefs off Guatemala Northern,
-                                          Central and Southern Quintana Roo, and Cozumel, Mexico, as well as reefs 
-                                          located within the Northern Barrier Complex of Belize and the Cayos Cochinos archipelago, 
-                                          Honduras (Figure 5D). Other areas where the majority of the reef was exposed to N plumes 
-                                          include the Central Barrier Complex of Belize (81%) and Utila, Honduras (70%). Just under 
-                                          half the reef area of the Southern Barrier Complex of Belize (46%) was exposed to plumes 
-                                          and less than one third of the reefs in Roatan were exposed. Reefs that had minimal or no 
-                                          direct exposure to the N plumes were located mostly in Belize."),
+                                        p("Reef area impacted directly correlates with proximity to high-density tourist areas. 
+                                          For example, plumes originating from Rio Ulua, Guatemala, the top watershed contributing N 
+                                          pollution to the MAR, did not overlap with coral reef area because there were no coral reefs
+                                          within the proximity. On the other hand, plumes from Cancún and Cozumel reached 100% of the nearby reef areas.
+                                          Tourism is dependent on healthy coral reef ecosystems, and nitrogen can increase coral reef stressors such as 
+                                          ocean temperatures and eutrophication. It is in the economic interest of all countries in the region to improve
+                                          pollution management to reduce environmental stress to coral reefs and promote their resilience to climate change."),
                                         br(),
                                         p()
                                         # tabsetPanel(type = "tabs",
